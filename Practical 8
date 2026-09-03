@@ -1,0 +1,46 @@
+# DFS function
+def dfs(node):
+    visited[node] = True
+    print(node, end=" ")
+
+    for neighbor in graph[node]:
+        if not visited[neighbor]:
+            dfs(neighbor)
+
+
+# BFS function
+def bfs(start):
+    visited_bfs = [False] * len(graph)
+    queue = []
+
+    visited_bfs[start] = True
+    queue.append(start)
+
+    while queue:
+        node = queue.pop(0)
+        print(node, end=" ")
+
+        for neighbor in graph[node]:
+            if not visited_bfs[neighbor]:
+                visited_bfs[neighbor] = True
+                queue.append(neighbor)
+
+
+# Main program
+vertices, edges = map(int, input("Enter vertices and edges: ").split())
+
+graph = [[] for _ in range(vertices)]
+visited = [False] * vertices
+
+for i in range(edges):
+    u, v = map(int, input("Enter edge: ").split())
+    graph[u].append(v)
+    graph[v].append(u)
+
+start = int(input("Enter starting vertex: "))
+
+print("DFS Traversal:", end=" ")
+dfs(start)
+
+print("\nBFS Traversal:", end=" ")
+bfs(start)
